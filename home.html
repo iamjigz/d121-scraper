@@ -1,0 +1,62 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+
+  <title>D121 Scraper</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/favicons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicons/favicon-16x16.png">
+  <link rel="manifest" href="assets/favicons/manifest.json">
+  <link rel="mask-icon" href="assets/favicons/safari-pinned-tab.svg" color="#5bbad5">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body ng-app="ngApp" ng-cloak>
+  <md-content ng-controller="AppCtrl">
+    <div ng-include="'views/partials/toolbar.html'"></div>
+
+    <md-tabs md-dynamic-height md-border-bottom>
+      <md-tab label="main" ng-cloak>
+        <md-content layout-padding ng-controller="MainCtrl">
+          <div ng-include="'views/main.html'"></div>
+        </md-content>
+      </md-tab>
+
+      <md-tab label="output" ng-cloak>
+        <md-content layout-padding ng-controller="OutputCtrl">
+          <div ng-include="'views/output.html'"></div>
+        </md-content>
+      </md-tab>
+
+      <md-tab ng-disabled label=""></md-tab>
+    </md-tabs>
+
+    <md-divider></md-divider>
+
+    <div ng-include="'views/partials/footer.html'"></div>
+  </md-content>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.0.385/pdf.js"></script>
+
+  <script src="js/app.js"></script>
+  <script src="js/controllers/main.js"></script>
+  <script src="js/controllers/output.js"></script>
+</body>
+
+</html>
