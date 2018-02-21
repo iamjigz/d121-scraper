@@ -40,14 +40,16 @@ app.controller('MainCtrl', ($scope, $http, $timeout, $sce, $mdSidenav) => {
 			console.log(arr)
 
 			let name = arr[0]
-			let phone = getValue(arr, 'Tel: (.*)')
-			let sic = getValue(arr, 'US SIC: (.*)')
-			let code = getValue(arr, 'US SIC: (\d*).*')
-			let directors = getValue(arr, 'Director.*: (.*)')
-			let emp_size = getValue(arr, 'Emp: (.*)')
+			let address = arr[1]
+			let phone = findByRegex(arr, '(?:Tel:)(.*)')
+			let sic = findByRegex(arr, '(?:US SIC: \\d+\\s)(.*)')
+			let code = findByRegex(arr, '(?:US SIC: )(\\d+)')
+			let directors = findByRegex(arr, '((.*Director|Partner|Proprietor).*: .*)')
+			let emp_size = findByRegex(arr, 'Emp: (.*)')
 
 			details = {
 				name: name,
+				address: address,
 				phone: phone,
 				sic: sic,
 				code: code,
@@ -58,14 +60,25 @@ app.controller('MainCtrl', ($scope, $http, $timeout, $sce, $mdSidenav) => {
 			console.log(details)
 		}
 
-		const getValue = (arr, text) => {
-			const regex = new RegExp(text, 'g')
+		const findByRegex = (arr, rgx) => {
+			const regex = new RegExp(rgx)
 			const string = arr.find(i => regex.test(i))
 
 			if (string) {
-				const match = string.match(regex)[0]
-				console.log(match)
+				const match = string.match(regex)
+				const index = arr.findIndex(i => regex.test(i))
+				const next = checkNextIndex(arr[index + 1]) ? '' : arr[index + 1]
+				const value = next ? match[1].concat(' ', next) : match[1]
+
+				return value || ''
 			}
+
+			return ''
+		}
+
+		const checkNextIndex = (arr) => {
+			const regex = new RegExp(':', 'igm')
+			return regex.test(arr)
 		}
 	}
 
