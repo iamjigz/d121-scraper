@@ -1,28 +1,32 @@
-<md-content>
-  <table class="table table-sm table-responsive table-striped table-bordered table-hover table-condensed">
+<md-content md-whiteframe="21" class="table-responsive">
+  <table class="table table-striped table-bordered table-hover table-condensed">
     <thead class="thead-inverse">
-      <tr>
-        <th>Business Name</th>
-        <th>Address</th>
-        <th>Phone Number</th>
-        <th>US SIC</th>
-        <th>Managing Director</th>
-        <th>Directors/Proprietors/Partners</th>
-        <th>Employee Size</th>
-        <th>Notes</th>
+      <tr ng-repeat="res in response | limitTo: 1">
+        <th>Edit</th>
+        <th ng-repeat="(key, val) in res">
+          {{ key | uppercase }}
+        </th>
+        <th>Remove</th>
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="res in response | orderBy: name track by $index">
-        <div>
-          <td>{{ res.name }}</td>
-          <td>{{ res.address }}</td>
-          <td>{{ res.phone }}</td>
-          <td>{{ res.sic }}</td>
-          <td>{{ res.managing_director }}</td>
-          <td>{{ res.directors }}</td>
-          <td>{{ res.notes }}</td>
-        </div>
+      <tr ng-repeat="res in response">
+        <td>
+          <md-button class="md-icon-button md-accent" ng-click="edit = !edit">
+            <md-icon aria-label="edit" class="material-icons size-16">edit</md-icon>
+          </md-button>
+        </td>
+
+        <td ng-repeat="(key, val) in res">
+          <span ng-show="!edit">{{ val }}</span>
+          <input flex ng-show="edit" type="text" ng-model="val"></input>
+        </td>
+
+        <td>
+          <md-button class="md-icon-button md-warn" ng-click="delete(res)">
+            <md-icon aria-label="delete" class="material-icons size-16">delete</md-icon>
+          </md-button>
+        </td>
       </tr>
     </tbody>
   </table>

@@ -4,6 +4,20 @@ html {
 
 body {
   line-height: 1.4;
-  max-width: 900px;
+  max-width: 1200px;
   margin: 20px auto;
+}
+
+table {
+  white-space: nowrap
+}
+
+.table-condensed {
+  font-size: 8px;
+}
+
+md-icon.size-16 {
+  width: 16px;
+  height: 16px;
+  line-height: 16px;
 }
