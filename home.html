@@ -1,4 +1,4 @@
-<html lang="en">
+<html lang="en" ng-app="ngApp">
 
 <head>
   <meta charset="UTF-8">
@@ -19,7 +19,7 @@
   <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
   <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.0.0-beta.4/dist/css/bootstrap-material-design.min.css"
       integrity="sha384-R80DC0KVBO4GSTw+wZ5x2zn2pu4POSErBkf8/fSFhPXHxvHJydT0CSgAP2Yo2r4I" crossorigin="anonymous">
-      
+
   <link rel="apple-touch-icon" sizes="180x180" href="assets/favicons/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="assets/favicons/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="assets/favicons/favicon-16x16.png">
@@ -28,7 +28,7 @@
   <link rel="stylesheet" href="css/styles.css">
 </head>
 
-<body ng-app="ngApp" ng-cloak>
+<body layout="column" ng-cloak>
   <md-content ng-controller="AppCtrl">
     <div ng-include="'views/partials/toolbar.html'"></div>
 

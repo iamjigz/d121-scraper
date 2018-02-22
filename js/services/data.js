@@ -3,10 +3,13 @@ app.service('DataService', function() {
 
 	let self = {
 		set: data => {
-			return business.push(data)
+			return business.push(validate(data))
 		},
 		get: data => {
 			return business
+		},
+		update: data => {
+			return business = data
 		},
 		evaluate: text => {
 			let details = {}
@@ -21,22 +24,18 @@ app.service('DataService', function() {
 			const contact = findByRegex(arr, '((.*Director|Partner|Proprietor).*: .*)')
 			const emp_size = findByRegex(arr, 'Emp: (.*)')
 
-			const isDigits = value => {
-				return /^\d+$/.test(value) ? value : ''
-			}
-
 			details = {
 				name: name,
 				address: address,
 				phone: phone,
 				sic: sic,
-				code: isDigits(code),
+				code: code,
 				contact: contact,
-				emp_size: isDigits(emp_size),
+				emp_size: emp_size,
 				note: ''
 			}
 
-			return details
+			return validate(details)
 		}
 	}
 
@@ -92,7 +91,19 @@ app.service('DataService', function() {
 	}
 
 	const validate = detail => {
+		const isDigits = value => {
+			return /^\d+$/.test(value) ? value : ''
+		}
 
+
+		detail.note = 'Valid'
+		detail.phone = isDigits(detail.phone) ? detail.phone.replace(/\b(0(?!\b))+/g, '') : ''
+		detail.code = isDigits(detail.code)
+		detail.emp_size = isDigits(detail.emp_size)
+
+		if (detail.name == '' || detail.phone == '' || detail.emp_size < 10) detail.note = 'Invalid'
+
+		return detail
 	}
 
 	return {

@@ -1,15 +1,19 @@
 <md-content layout="column" ng-cloak>
-  <form name="httpForm" novalidate ng-submit="httpForm.$valid && getPdf(pdfUrl)" layout layout-padding layout-align="start center">
-    <md-input-container flex>
-      <label>PDF URL</label>
-      <input required name="pdfUrl" ng-model="pdfUrl" ng-pattern="/^(http:\/\/|https:\/\/)?.+\.pdf$/">
-      <div ng-messages="httpForm.pdfUrl.$error">
-        <div ng-message="required">Url is required.</div>
-        <div ng-message="pattern">The url must be of a valid pdf file.</div>
-      </div>
-    </md-input-container>
-
-    <md-button type="submit" class="md-raised md-primary">Get PDF</md-button>
+  <form name="httpForm" novalidate ng-submit="httpForm.$valid && getPdf(pdfUrl)" layout-padding>
+    <div layout="row" flex layout-align="start center">
+      <md-input-container flex class="md-icon-float md-block md-title">
+        <label>PDF URL</label>
+        <md-icon class="material-icons md-accent">http</md-icon>
+        <input required flex="90" name="pdfUrl" ng-model="pdfUrl" ng-pattern="/^(http:\/\/|https:\/\/)?.+\.pdf$/">
+        <md-button aria-label="Submit" type="submit" class="md-icon-button md-primary">
+          <md-icon class="material-icons">search</md-icon>
+        </md-button>
+        <div ng-messages="httpForm.pdfUrl.$error">
+          <div ng-message="required">Url is required.</div>
+          <div ng-message="pattern">The url must be of a valid pdf file.</div>
+        </div>
+      </md-input-container>
+    </div>
   </form>
 
   <md-subheader class="md-primary" layout="column" flex>
@@ -23,13 +27,15 @@
         <h1 class="md-toolbar-tools">Details:</h1>
       </md-toolbar>
 
-      <form layout="column">
-        <md-input-container ng-oninit="inputText = ''">
+      <form layout>
+        <md-input-container ng-init="inputText = ''">
           <label>Paste Value</label>
-          <textarea type="text" md-no-autogrow md-no-resize md-select-on-focus md-max-rows="1" ng-model="inputText" ng-paste='handlePaste($event)'></textarea>
+          <textarea type="text" md-autofocus md-no-autogrow md-no-resize md-select-on-focus md-max-rows="1" ng-model="inputText" ng-paste='handlePaste($event)'></textarea>
         </md-input-container>
-        <div layout layout-align="end center">
-          <md-button class="md-primary md-raised" ng-disabled="!details" ng-click="save(details)">Save</md-button>
+        <div layout flex="20" layout-align="end center">
+          <md-button class="md-primary md-icon-button" ng-disabled="!details || details.name == ''" ng-click="save(details)">
+            <md-icon class="material-icons">save</md-icon>
+          </md-button>
         </div>
       </form>
       <md-divider></md-divider>
@@ -42,8 +48,9 @@
     </md-sidenav>
 
     <object data="{{ pdfContent }}" type="application/pdf" style="width: 100%; height: 100%;"></object>
-    <md-button class="md-fab md-mini md-primary" ng-mouseover="openSidenav()">
-      <md-icon aria-label="open" class="material-icons">swap_horiz</md-icon>
+
+    <md-button aria-label="open" class="md-icon-button md-primary" ng-mouseover="openSidenav()">
+      <md-icon class="material-icons">swap_horiz</md-icon>
     </md-button>
   </md-content>
 </md-content>

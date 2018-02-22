@@ -4,8 +4,9 @@ html {
 
 body {
   line-height: 1.4;
-  max-width: 1200px;
+  max-width: 95%;
   margin: 20px auto;
+  overflow-y: hidden !important;
 }
 
 table {
@@ -13,7 +14,7 @@ table {
 }
 
 .table-condensed {
-  font-size: 12px;
+  font-size: 8px;
 }
 
 .table td {
@@ -23,7 +24,7 @@ table {
 
 .table th {
   vertical-align: middle;
-  text-align: center;   
+  text-align: center;
 }
 
 .material-icons.md-18 {
