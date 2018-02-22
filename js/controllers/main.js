@@ -20,7 +20,7 @@ app.controller('MainCtrl', ($scope, $http, $timeout, $sce, $mdSidenav, $mdDialog
 				$scope.status = ''
 			})
 			.catch(err => {
-				$scope.toast('Please enable Cross-Origin Request.', 'warn')
+				$scope.toast('Please install/enable "Allow-Control-Allow-Origin: *" extension.', 'warn')
 				$scope.status = ''
 			})
 	}
@@ -30,56 +30,9 @@ app.controller('MainCtrl', ($scope, $http, $timeout, $sce, $mdSidenav, $mdDialog
 			if (e.target.value.length > 0) {
 				const text = e.target.value
 				$scope.copiedText = text
-				$scope.details = getDetails(text)
+				$scope.details = DS.evaluate(text)
 			}
 		}, 10)
-
-		const getDetails = text => {
-			let details = {}
-
-			arr = text.split('\n')
-
-			const name = arr[0]
-			const address = arr[1]
-			const phone = findByRegex(arr, '(?:Tel:)(.*)')
-			const sic = findByRegex(arr, '(?:US SIC: \\d+\\s)(.*)')
-			const code = findByRegex(arr, '(?:US SIC: )(\\d+)')
-			const conctact = findByRegex(arr, '((.*Director|Partner|Proprietor).*: .*)')
-			const emp_size = findByRegex(arr, 'Emp: (.*)')
-
-			details = {
-				name: name,
-				address: address,
-				phone: phone,
-				sic: sic,
-				code: code,
-				conctact: conctact,
-				emp_size: emp_size,
-				note: ''
-			}
-
-			return details
-		}
-
-		const findByRegex = (arr, rgx) => {
-			const regex = new RegExp(rgx)
-			const string = arr.find(i => regex.test(i))
-
-			if (string) {
-				const match = string.match(regex)
-				const index = arr.findIndex(i => regex.test(i))
-				const next = checkNextIndex(arr[index + 1]) ? '' : arr[index + 1]
-
-				return match[1].concat(' ', next ? next : '').trim() || ''
-			}
-
-			return ''
-		}
-
-		const checkNextIndex = (arr) => {
-			const regex = new RegExp(':', 'igm')
-			return regex.test(arr)
-		}
 	}
 
 	$scope.openSidenav = () => {

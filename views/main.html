@@ -36,7 +36,7 @@
       <md-list class="md-dense" flex>
         <md-list-item flex ng-repeat="(key, value) in details">
           <p class="md-caption">{{ key | uppercase }}: {{ value }}</p>
-          <md-icon aria-label="edit" class="material-icons md-secondary" ng-click="edit(key, value, $event)">edit</md-icon>
+          <md-icon aria-label="edit" class="material-icons md-secondary" ng-class="(value == '') ? 'md-warn' : 'md-primary'" ng-click="edit(key, value, $event)">edit</md-icon>
         </md-list-item>
       </md-list>
     </md-sidenav>

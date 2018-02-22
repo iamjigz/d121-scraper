@@ -8,7 +8,6 @@ app.controller('OutputCtrl', ($scope, DataService) => {
 	})
 
 	$scope.delete = item => {
-		console.log(item)
 		$scope.response.splice($scope.response.indexOf(item), 1)
 	}
 })

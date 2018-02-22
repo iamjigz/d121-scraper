@@ -13,11 +13,19 @@ table {
 }
 
 .table-condensed {
-  font-size: 8px;
+  font-size: 12px;
 }
 
-md-icon.size-16 {
-  width: 16px;
-  height: 16px;
-  line-height: 16px;
+.table td {
+  vertical-align: middle;
+  text-align: center;
+}
+
+.table th {
+  vertical-align: middle;
+  text-align: center;   
+}
+
+.material-icons.md-18 {
+  font-size: 18px;
 }
