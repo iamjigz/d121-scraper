@@ -1,12 +1,5 @@
-app.controller('OutputCtrl', ($scope, $filter, $mdMenu, DataService) => {
+app.controller('OutputCtrl', ($scope, $filter, $q, DataService) => {
 	const DS = DataService
-	let originatorEv
-	// $scope.options = false
-
-	$scope.options = ($mdMenu, ev) => {
-		originatorEv = ev
-		$mdMenu.open(ev)
-	}
 
 	$scope.$watch(() => {
 		return DS.get()
@@ -25,6 +18,36 @@ app.controller('OutputCtrl', ($scope, $filter, $mdMenu, DataService) => {
 		})
 
 		$scope.response = (saved.length == arr.length) ? filter : saved
+	}
+
+	$scope.export = data => {
+		const unparse = arr => {
+			const defer = $q.defer()
+			let filter = $filter('filter')(arr, {
+				note: 'Valid'
+			}, true)
+
+			let csv = Papa.unparse(filter)
+
+			if (csv) defer.resolve(csv)
+
+			return defer.promise
+		}
+
+		unparse(data)
+			.then(results => {
+				filename = `D121 Data Export.csv`
+				let csvData = new Blob([results], {
+					type: 'text/csv;charset=utf-8;'
+				});
+				let csvURL = window.URL.createObjectURL(csvData);
+				let tempLink = document.createElement('a');
+
+				tempLink.href = csvURL;
+				tempLink.setAttribute('download', filename);
+				tempLink.click();
+				$scope.toast('Parsing completed. Downloading file.', 'accent')
+			})
 	}
 
 	$scope.$watch('response', (newVal, oldVal) => {

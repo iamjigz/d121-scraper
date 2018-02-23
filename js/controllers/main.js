@@ -3,7 +3,7 @@ app.controller('MainCtrl', ($scope, $http, $timeout, $sce, $mdSidenav, $mdDialog
 
 	$scope.getPdf = (url) => {
 		$scope.status = 'Loading. Please Wait...'
-		$http.get(url, {
+		$http.get(`https://cors-anywhere.herokuapp.com/${url}`, {
 				responseType: 'arraybuffer',
 				headers: {
 					'Accept': 'application/pdf'
