@@ -30,7 +30,6 @@ app.controller('OutputCtrl', ($scope, $filter, $q, DataService) => {
 			let csv = Papa.unparse(filter)
 
 			if (csv) defer.resolve(csv)
-
 			return defer.promise
 		}
 

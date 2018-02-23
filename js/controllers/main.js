@@ -13,8 +13,8 @@ app.controller('MainCtrl', ($scope, $http, $timeout, $sce, $mdSidenav, $mdDialog
 				const file = new Blob([(response)], {
 					type: 'application/pdf'
 				})
-
 				const fileURL = URL.createObjectURL(file);
+
 				$scope.pdfContent = $sce.trustAsResourceUrl(fileURL)
 				$scope.toast('All Done', 'secondary')
 				$scope.status = ''

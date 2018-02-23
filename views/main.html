@@ -21,7 +21,7 @@
     <md-progress-linear ng-show="status && !pdfContent" flex md-mode="query"></md-progress-linear>
   </md-subheader>
 
-  <md-content md-whiteframe="21" flex layout layout-padding ng-show="pdfContent" paste-directive>
+  <md-content md-whiteframe="21" flex layout layout-padding ng-show="pdfContent">
     <md-sidenav class="md-sidenav-right md-whiteframe-4dp" md-component-id="right">
       <md-toolbar class="md-theme-light">
         <h1 class="md-toolbar-tools">Details:</h1>
@@ -33,7 +33,7 @@
           <textarea type="text" md-autofocus md-no-autogrow md-no-resize md-select-on-focus md-max-rows="1" ng-model="inputText" ng-paste='handlePaste($event)'></textarea>
         </md-input-container>
         <div layout flex="20" layout-align="end center">
-          <md-button class="md-primary md-icon-button" ng-disabled="!details || details.name == ''" ng-click="save(details)">
+          <md-button class="md-primary md-icon-button" ng-disabled="!details || details.name == '' || details.code == ''" ng-click="save(details)">
             <md-icon class="material-icons">save</md-icon>
           </md-button>
         </div>
