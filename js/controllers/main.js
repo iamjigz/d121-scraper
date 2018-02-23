@@ -35,8 +35,15 @@ app.controller('MainCtrl', ($scope, $http, $timeout, $sce, $mdSidenav, $mdDialog
 		}, 10)
 	}
 
-	$scope.openSidenav = () => {
-		$mdSidenav('right').toggle()
+	$scope.openSidenav = (position) => {
+		$scope.position = `md-sidenav-${position}`
+		$timeout(() => {
+			$mdSidenav('sidenav').toggle()
+		}, 100);
+	}
+
+	$scope.closeSidenav = () => {
+		$mdSidenav('sidenav').close()
 	}
 
 	$scope.edit = (key, value, ev) => {
@@ -53,6 +60,7 @@ app.controller('MainCtrl', ($scope, $http, $timeout, $sce, $mdSidenav, $mdDialog
 		$mdDialog.show(prompt)
 			.then(res => {
 				$scope.details[key] = res
+				$scope.details = DS.validate($scope.details)
 				$scope.toast(`The value for ${key} has been edited.`, 'secondary')
 			}, () => {
 				$scope.toast(`Editing has been cancelled`, 'warn')
@@ -61,7 +69,7 @@ app.controller('MainCtrl', ($scope, $http, $timeout, $sce, $mdSidenav, $mdDialog
 
 	$scope.save = details => {
 		$scope.toast(`Added ${details.name}.`, 'secondary')
-		DS.set(details)
+		DS.append(details)
 		$scope.details = ''
 	}
 })

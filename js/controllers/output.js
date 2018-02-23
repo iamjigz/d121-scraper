@@ -47,6 +47,10 @@ app.controller('OutputCtrl', ($scope, $filter, $q, DataService) => {
 				tempLink.click();
 				$scope.toast('Parsing completed. Downloading file.', 'accent')
 			})
+			.then(() => {
+				DS.set('')
+				$scope.response = DS.get()
+			})
 	}
 
 	$scope.$watch('response', (newVal, oldVal) => {

@@ -2,14 +2,17 @@ app.service('DataService', function() {
 	let business = []
 
 	let self = {
-		set: data => {
+		append: data => {
 			return business.push(validate(data))
 		},
 		get: data => {
 			return business
 		},
-		update: data => {
+		set: data => {
 			return business = data
+		},
+		validate: data => {
+			return validate(data)
 		},
 		evaluate: text => {
 			let details = {}
@@ -18,11 +21,11 @@ app.service('DataService', function() {
 
 			const address = findAddress(arr)
 			const name = findName(arr, address)
-			const phone = findByRegex(arr, '(?:Tel:)(.*)')
+			const phone = findByRegex(arr, '(?:Tel: )(\\d+)')
 			const sic = findByRegex(arr, '(?:US SIC: \\d+\\s)(.*)')
 			const code = findByRegex(arr, '(?:US SIC: )(\\d+)')
 			const contact = findByRegex(arr, '((.*Director|Partner|Proprietor).*: .*)')
-			const emp_size = findByRegex(arr, 'Emp: (.*)')
+			const emp_size = findByRegex(arr, 'Emp: (\\d+)')
 
 			details = {
 				name: name,
@@ -107,8 +110,10 @@ app.service('DataService', function() {
 	}
 
 	return {
-		set: self.set,
+		append: self.append,
 		get: self.get,
+		set: self.set,
+		validate: self.validate,
 		evaluate: self.evaluate
 	}
 })
