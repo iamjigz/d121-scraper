@@ -7,6 +7,14 @@ app.controller('OutputCtrl', ($scope, $filter, $q, DataService) => {
 		$scope.response = newVal
 	})
 
+	$scope.update = (item, rowIndex, prop, value) => {
+		let row = $scope.response[rowIndex]
+		row[prop] = value
+
+		let newItem = row = DS.validate(row)
+		$scope.toast(`${row.name} has been updated.`, 'accent')
+	}
+
 	$scope.delete = item => {
 		$scope.response.splice($scope.response.indexOf(item), 1)
 	}
@@ -53,16 +61,17 @@ app.controller('OutputCtrl', ($scope, $filter, $q, DataService) => {
 			})
 	}
 
-	$scope.$watch('response', (newVal, oldVal) => {
+	$scope.$watchCollection('response', (newVal, oldVal) => {
 		$scope.dataCounter = {
 			valid: 0,
 			invalid: 0,
 		}
-
-		$scope.response.forEach(item => {
-			if (!item) return
-			if (item.note == 'Valid') return $scope.dataCounter.valid++
-				if (item.note == 'Invalid') return $scope.dataCounter.invalid++
-		})
-	}, true)
+		if ($scope.response) {
+			$scope.response.forEach(item => {
+				if (!item) return
+				if (item.note == 'Valid') return $scope.dataCounter.valid++
+					if (item.note == 'Invalid') return $scope.dataCounter.invalid++
+			})
+		}
+	})
 })

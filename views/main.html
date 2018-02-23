@@ -30,7 +30,7 @@
       <form layout>
         <md-input-container ng-init="inputText = ''">
           <label>Paste Value</label>
-          <textarea type="text" md-autofocus md-no-autogrow md-no-resize md-select-on-focus md-max-rows="1" ng-model="inputText" ng-paste='handlePaste($event)'></textarea>
+          <textarea type="text" md-no-autogrow md-no-resize md-select-on-focus md-max-rows="1" ng-model="inputText" ng-paste='handlePaste($event)'></textarea>
         </md-input-container>
         <div layout flex="20" layout-align="end center">
           <md-button class="md-primary md-icon-button" ng-disabled="!details || details.name == '' || details.emp_size == ''" ng-click="save(details)">
@@ -50,6 +50,6 @@
     <div ng-mouseover="openSidenav('left')"></div>
     <object data="{{ pdfContent }}" type="application/pdf" style="width: 100%; height: 100%;"></object>
     <div ng-mouseover="openSidenav('right')"></div>
-    
+
   </md-content>
 </md-content>

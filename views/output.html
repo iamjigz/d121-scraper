@@ -32,11 +32,11 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="res in response" ng-dblclick="edit = !edit" ng-class="{ 'table-warning': res.note == 'Invalid'}">
+        <tr ng-repeat="res in response track by $index" ng-init="rowIndex = $index" ng-dblclick="edit = !edit" ng-class="{ 'table-warning': res.note == 'Invalid'}">
           <td ng-repeat="(key, val) in res">
             <span ng-hide="edit && !lock">{{ val }}</span>
             <md-input-container md-no-float ng-show="edit && !lock">
-              <input flex type="text" placeholder="{{ key }}" ng-model="val"></input>
+              <input flex type="text" md-select-on-focus placeholder="{{ key }}" ng-model="val" ng-model-options="{ debounce: 1000 }" ng-change="update(res, rowIndex, key, val)"></input>
               <md-tooltip>{{ val }}</md-tooltip>
             </md-input-container>
           </td>

@@ -39,11 +39,13 @@ app.controller('MainCtrl', ($scope, $http, $timeout, $sce, $mdSidenav, $mdDialog
 		$scope.position = `md-sidenav-${position}`
 		$timeout(() => {
 			$mdSidenav('sidenav').toggle()
-		}, 100);
+		}, 300);
 	}
 
 	$scope.closeSidenav = () => {
-		$mdSidenav('sidenav').close()
+		$timeout(() => {
+			$mdSidenav('sidenav').close()
+		}, 300);
 	}
 
 	$scope.edit = (key, value, ev) => {
