@@ -65,18 +65,18 @@ app.directive('fileReader', function(ParseService) {
 		scope: {
 			fileReader: "="
 		},
-		link: function(scope, element) {
-			$(element).on('change', function(changeEvent) {
+		link: (scope, element) => {
+			$(element).on('change', changeEvent => {
 				let files = changeEvent.target.files
 
 				if (files.length) {
 					angular.forEach(files, file => {
 						let r = new FileReader()
 
-						r.onload = function(e) {
+						r.onload = e => {
 							let contents = e.target.result
 
-							scope.$apply(function() {
+							scope.$apply(() => {
 								PS.parse(contents)
 									.then(rows => {
 										PS.append(rows.data)

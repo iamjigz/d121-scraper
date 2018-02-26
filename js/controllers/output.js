@@ -40,13 +40,13 @@ app.controller('OutputCtrl', ($scope, $filter, DataService, ParseService) => {
 				filename = `D121 Data Export.csv`
 				let csvData = new Blob([results], {
 					type: 'text/csv;charset=utf-8;'
-				});
-				let csvURL = window.URL.createObjectURL(csvData);
-				let tempLink = document.createElement('a');
+				})
+				let csvURL = window.URL.createObjectURL(csvData)
+				let tempLink = document.createElement('a')
 
-				tempLink.href = csvURL;
-				tempLink.setAttribute('download', filename);
-				tempLink.click();
+				tempLink.href = csvURL
+				tempLink.setAttribute('download', filename)
+				tempLink.click()
 				$scope.toast('Parsing completed. Downloading file.', 'accent')
 			})
 			.then(() => {
