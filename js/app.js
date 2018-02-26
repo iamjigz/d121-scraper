@@ -87,6 +87,8 @@ app.directive('fileReader', function(ParseService) {
 						r.readAsText(file)
 					})
 				}
+
+				$(element).val(null)
 			})
 		}
 	}

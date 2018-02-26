@@ -8,7 +8,7 @@ app.controller('CompileCtrl', ($scope, ParseService) => {
 	})
 
 	$scope.clear = () => {
-		PS.set('')
+		PS.set([])
 		$scope.rows = PS.get()
 	}
 
@@ -30,9 +30,7 @@ app.controller('CompileCtrl', ($scope, ParseService) => {
 				$scope.toast('Parsing completed. Downloading file.', 'accent')
 			})
 			.then(() => {
-				PS.set('')
-				$scope.rows = PS.get()
-				console.log($scope.rows)
+				$scope.clear()
 			})
 	}
 })

@@ -1,7 +1,7 @@
 <md-content>
   <md-content layout layout-align="start center">
     <label for="file-input" class="md-button md-raised md-primary">Choose Files</label>
-    <input id="file-input" class="ng-hide" type="file" multiple file-reader="rows" />
+    <input id="file-input" class="ng-hide" ng-model="files" type="file" multiple file-reader="rows" />
     <span flex></span>
     <md-button aria-label="Download" class="md-raised md-primary" ng-show="rows.length > 0" ng-click="export(rows, $event)">Download</md-button>
     <md-button aria-label="Clear" class="md-raised md-warn" ng-show="rows.length > 0" ng-click="clear()">Clear</md-button>
