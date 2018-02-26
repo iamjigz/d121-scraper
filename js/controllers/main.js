@@ -29,6 +29,7 @@ app.controller('MainCtrl', ($scope, $http, $timeout, $sce, $mdSidenav, $mdDialog
 		$timeout(function() {
 			if (e.target.value.length > 0) {
 				const text = e.target.value
+
 				$scope.copiedText = text
 				$scope.details = DS.evaluate(text)
 			}

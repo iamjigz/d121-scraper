@@ -45,6 +45,12 @@
         </md-content>
       </md-tab>
 
+      <md-tab label="compile" ng-cloak>
+        <md-content layout-padding ng-controller="CompileCtrl">
+          <div ng-include="'views/compile.html'"></div>
+        </md-content>
+      </md-tab>
+
       <md-tab ng-disabled label=""></md-tab>
     </md-tabs>
 
@@ -59,7 +65,9 @@
   <script src="js/app.js"></script>
   <script src="js/controllers/main.js"></script>
   <script src="js/controllers/output.js"></script>
+  <script src="js/controllers/compile.js"></script>
   <script src="js/services/data.js"></script>
+  <script src="js/services/parse.js"></script>
 </body>
 
 </html>

@@ -1,15 +1,15 @@
 app.service('DataService', function() {
-	let business = []
+	let _data = []
 
 	let self = {
 		append: data => {
-			return business.push(validate(data))
+			return _data.push(validate(data))
 		},
 		get: data => {
-			return business
+			return _data
 		},
 		set: data => {
-			return business = data
+			return _data = data
 		},
 		validate: data => {
 			return validate(data)
@@ -97,7 +97,6 @@ app.service('DataService', function() {
 		const isDigits = value => {
 			return /^\d+$/.test(value) ? value : ''
 		}
-
 
 		detail.note = 'Valid'
 		detail.phone = isDigits(detail.phone) ? detail.phone.replace(/\b(0(?!\b))+/g, '') : ''

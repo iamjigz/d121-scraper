@@ -1,5 +1,6 @@
-app.controller('OutputCtrl', ($scope, $filter, $q, DataService) => {
+app.controller('OutputCtrl', ($scope, $filter, DataService, ParseService) => {
 	const DS = DataService
+	const PS = ParseService
 
 	$scope.$watch(() => {
 		return DS.get()
@@ -29,44 +30,29 @@ app.controller('OutputCtrl', ($scope, $filter, $q, DataService) => {
 	}
 
 	$scope.export = (data, ev) => {
-		const unparse = arr => {
-			const defer = $q.defer()
-			let filter = $filter('filter')(arr, {
-				note: 'Valid'
-			}, true)
+		let copy = angular.copy(data)
+		let filter = $filter('filter')(copy, {
+			note: 'Valid'
+		}, true)
 
-			let csv = Papa.unparse(angular.copy(filter))
+		PS.unparse(filter)
+			.then(results => {
+				filename = `D121 Data Export.csv`
+				let csvData = new Blob([results], {
+					type: 'text/csv;charset=utf-8;'
+				});
+				let csvURL = window.URL.createObjectURL(csvData);
+				let tempLink = document.createElement('a');
 
-			if (csv) defer.resolve(csv)
-			return defer.promise
-		}
-
-		let confirm = $scope.showConfirm({
-			title: 'Do you want to convert and download the table as csv?',
-			text: 'Please verify the data on the table.',
-		}, ev)
-
-		if (confirm) {
-			unparse(data)
-				.then(results => {
-					filename = `D121 Data Export.csv`
-					let csvData = new Blob([results], {
-						type: 'text/csv;charset=utf-8;'
-					});
-					let csvURL = window.URL.createObjectURL(csvData);
-					let tempLink = document.createElement('a');
-
-					tempLink.href = csvURL;
-					tempLink.setAttribute('download', filename);
-					tempLink.click();
-					$scope.toast('Parsing completed. Downloading file.', 'accent')
-				})
-				.then(() => {
-					DS.set('')
-					$scope.response = DS.get()
-				})
-		}
-
+				tempLink.href = csvURL;
+				tempLink.setAttribute('download', filename);
+				tempLink.click();
+				$scope.toast('Parsing completed. Downloading file.', 'accent')
+			})
+			.then(() => {
+				DS.set('')
+				$scope.response = DS.get()
+			})
 	}
 
 	$scope.$watchCollection('response', (newVal, oldVal) => {

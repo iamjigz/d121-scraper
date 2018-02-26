@@ -37,9 +37,9 @@ app.controller('AppCtrl', ($scope, $mdToast, $mdDialog) => {
 		$mdDialog.show(confirm)
 	}
 
-	$scope.$watch('menuOpen', function(isOpen) {
+	$scope.$watch('menuOpen', isOpen => {
 		if (isOpen) {
-			$timeout(function() {
+			$timeout(() => {
 				$scope.tooltip = $scope.menuOpen
 			}, 600);
 		} else {
@@ -48,12 +48,44 @@ app.controller('AppCtrl', ($scope, $mdToast, $mdDialog) => {
 	})
 
 	const DialogController = ($scope, $mdDialog) => {
-		$scope.hide = function() {
-			$mdDialog.hide();
+		$scope.hide = () => {
+			$mdDialog.hide()
 		}
 
-		$scope.cancel = function() {
-			$mdDialog.cancel();
+		$scope.cancel = () => {
+			$mdDialog.cancel()
+		}
+	}
+})
+
+app.directive('fileReader', function(ParseService) {
+	const PS = ParseService
+
+	return {
+		scope: {
+			fileReader: "="
+		},
+		link: function(scope, element) {
+			$(element).on('change', function(changeEvent) {
+				let files = changeEvent.target.files
+
+				if (files.length) {
+					let r = new FileReader()
+
+					r.onload = function(e) {
+						let contents = e.target.result
+
+						scope.$apply(function() {
+							PS.parse(contents)
+								.then(rows => {
+									PS.append(rows.data)
+								})
+						})
+					}
+
+					r.readAsText(files[0])
+				}
+			})
 		}
 	}
 })

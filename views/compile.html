@@ -1,0 +1,18 @@
+<input type="file" file-reader="rows" />
+
+<table class="table table-sm table-striped table-bordered table-hover table-condensed">
+  <thead class="thead-inverse">
+    <tr ng-repeat="row in rows | limitTo: 1">
+      <th ng-repeat="(key, val) in row">
+        {{ key | uppercase }}
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="row in rows track by $index">
+      <td ng-repeat="(key, val) in row">
+        <span>{{ val }}</span>
+      </td>
+    </tr>
+  </tbody>
+</table>
