@@ -4,7 +4,8 @@ app.service('ParseService', function($q) {
 	let self = {
 		parse: data => {
 			const defer = $q.defer()
-			let json = Papa.parse(data, {
+
+			Papa.parse(data, {
 				download: false,
 				header: true,
 				skipEmptyLines: true,
@@ -25,6 +26,9 @@ app.service('ParseService', function($q) {
 			if (csv) defer.resolve(csv)
 			return defer.promise
 		},
+		set: data => {
+			return _data = data
+		},
 		get: data => {
 			return _data
 		},
@@ -32,7 +36,8 @@ app.service('ParseService', function($q) {
 			let copy = angular.copy(data)
 
 			_data.push(copy)
-			return _data = [].concat.apply([], _data)
+			_data = [].concat.apply([], _data)
+			return _data = _.uniqBy(_data, 'phone')
 		}
 	}
 
@@ -40,6 +45,7 @@ app.service('ParseService', function($q) {
 		parse: self.parse,
 		unparse: self.unparse,
 		get: self.get,
+		set: self.set,
 		append: self.append
 	}
 })
