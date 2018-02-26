@@ -1,3 +1,7 @@
+<md-subheader class="md-primary" ng-hide="response.length > 0">
+  <span class="md-title">No data found.</span>
+</md-subheader>
+
 <md-content layout="column" ng-show="response.length > 0" ng-init="lock = true">
   <md-content layout layout-align="end center">
     <md-button aria-label="Enable Edit" class="md-icon-button md-accent" ng-click="lock = !lock">
@@ -9,7 +13,7 @@
       <md-icon class="material-icons">filter_list</md-icon>
       <md-tooltip md-direction="bottom">Filter</md-tooltip>
     </md-button>
-    <md-button aria-label="Download" class="md-icon-button md-accent" ng-click="export(response)">
+    <md-button aria-label="Download" class="md-icon-button md-accent" ng-click="export(response, $event)">
       <md-icon class="material-icons">file_download</md-icon>
       <md-tooltip md-direction="bottom">Download</md-tooltip>
     </md-button>

@@ -28,37 +28,45 @@ app.controller('OutputCtrl', ($scope, $filter, $q, DataService) => {
 		$scope.response = (saved.length == arr.length) ? filter : saved
 	}
 
-	$scope.export = data => {
+	$scope.export = (data, ev) => {
 		const unparse = arr => {
 			const defer = $q.defer()
 			let filter = $filter('filter')(arr, {
 				note: 'Valid'
 			}, true)
 
-			let csv = Papa.unparse(filter)
+			let csv = Papa.unparse(angular.copy(filter))
 
 			if (csv) defer.resolve(csv)
 			return defer.promise
 		}
 
-		unparse(data)
-			.then(results => {
-				filename = `D121 Data Export.csv`
-				let csvData = new Blob([results], {
-					type: 'text/csv;charset=utf-8;'
-				});
-				let csvURL = window.URL.createObjectURL(csvData);
-				let tempLink = document.createElement('a');
+		let confirm = $scope.showConfirm({
+			title: 'Do you want to convert and download the table as csv?',
+			text: 'Please verify the data on the table.',
+		}, ev)
 
-				tempLink.href = csvURL;
-				tempLink.setAttribute('download', filename);
-				tempLink.click();
-				$scope.toast('Parsing completed. Downloading file.', 'accent')
-			})
-			.then(() => {
-				DS.set('')
-				$scope.response = DS.get()
-			})
+		if (confirm) {
+			unparse(data)
+				.then(results => {
+					filename = `D121 Data Export.csv`
+					let csvData = new Blob([results], {
+						type: 'text/csv;charset=utf-8;'
+					});
+					let csvURL = window.URL.createObjectURL(csvData);
+					let tempLink = document.createElement('a');
+
+					tempLink.href = csvURL;
+					tempLink.setAttribute('download', filename);
+					tempLink.click();
+					$scope.toast('Parsing completed. Downloading file.', 'accent')
+				})
+				.then(() => {
+					DS.set('')
+					$scope.response = DS.get()
+				})
+		}
+
 	}
 
 	$scope.$watchCollection('response', (newVal, oldVal) => {

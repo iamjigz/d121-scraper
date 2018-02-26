@@ -1,0 +1,80 @@
+<md-dialog aria-label="How-to">
+  <form>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>How To Use</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          <md-icon class="material-icons" aria-label="Close dialog">close</md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content>
+      <md-tabs md-dynamic-height md-border-bottom>
+        <md-tab label="step one">
+          <md-content class="md-padding">
+            <h3 class="md-display-2">Parsing the PDF</h3>
+            <md-list class="md-dense" flex>
+              <md-list-item class="md-2-line">
+                <div class="md-list-item-text" layout="column">
+                  <h3>Pass the link of the PDF attachment from Trello that you'll be working on.</h3>
+                  <h4>
+                    <a ng-href="https://trello-attachments.s3.amazonaws.com/58a2839b9fd04209e41ea1cf/5a94169dda1ecd209e7828be/x/309030f296a3eccf8255d2567f27aabc/01-23-2018_Somerset.pdf" target="_blank">Sample Link</a>
+                  </h4>
+                </div>
+              </md-list-item>
+              <md-list-item>
+                <div class="md-list-item-text" layout="column">
+                  <p class="md-caption">Copy each record and paste it on the Details sidebar by hovering the mouse on either side of the PDF.</p>
+                  <p class="md-caption">Ensure that each detail is correct. Editing when necessary.</p>
+                  <p class="md-caption">Click Save.</p>
+                </div>
+              </md-list-item>
+            </md-list>
+          </md-content>
+        </md-tab>
+
+        <md-tab label="step two">
+          <md-content class="md-padding">
+            <h3 class="md-display-2">Saving the extracted Data</h3>
+            <md-list class="md-dense" flex>
+              <md-list-item>
+                <div class="md-list-item-text" layout="column">
+                  <p class="md-caption">Edit or remove rows from the data table by clicking on the Lock icon and double-clicking on the row you wish to edit.</p>
+                  <p class="md-caption">Use the Filter icon to view all Invalid rows. (Data without a phone number or have an employee size below 10.)</p>
+                  <p class="md-caption">Click the Download icon to download the data table as a CSV file.</p>
+                </div>
+              </md-list-item>
+            </md-list>
+          </md-content>
+        </md-tab>
+
+        <md-tab label="step three">
+          <md-content class="md-padding">
+            <h3 class="md-display-2">Compiling CSV files</h3>
+            <md-list md-dense flex>
+              <md-list-item>
+                <div class="md-list-item-text" layout="column">
+                  <p class="md-caption">Not yet implemented.</p>
+                </div>
+              </md-list-item>
+            </md-list>
+          </md-content>
+        </md-tab>
+
+        <md-tab label="" ng-disabled="true"></md-tab>
+      </md-tabs>
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button ng-click="answer('not useful')">
+        Not Useful
+      </md-button>
+      <md-button ng-click="answer('useful')" style="margin-right:20px;">
+        Useful
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>
