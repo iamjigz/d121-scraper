@@ -20,11 +20,9 @@
   </md-content>
 
   <md-content md-whiteframe="21" class="table-responsive">
-    <div layout layout-align="start center">
-      <md-subheader class="md-primary">
-        <span>Showing {{ response.length }} rows. ({{ dataCounter.valid }} valid.  {{ dataCounter.invalid }} invalid.)</span>
-      </md-subheader>
-    </div>
+    <md-subheader class="md-primary">
+      <span>Total rows extracted: {{ response.length }} ({{ dataCounter.valid }} valid.  {{ dataCounter.invalid }} invalid.)</span>
+    </md-subheader>
 
     <table class="table table-sm table-striped table-bordered table-hover table-condensed">
       <thead class="thead-inverse">

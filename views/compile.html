@@ -6,21 +6,27 @@
     <md-button aria-label="Download" class="md-raised md-primary" ng-show="rows.length > 0" ng-click="export(rows, $event)">Download</md-button>
     <md-button aria-label="Clear" class="md-raised md-warn" ng-show="rows.length > 0" ng-click="clear()">Clear</md-button>
   </md-content>
-</md-content>
 
-<table class="table table-sm table-striped table-bordered table-hover table-condensed">
-  <thead class="thead-inverse">
-    <tr ng-repeat="row in rows | limitTo: 1">
-      <th ng-repeat="(key, val) in row">
-        {{ key | uppercase }}
-      </th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr ng-repeat="row in rows track by $index">
-      <td ng-repeat="(key, val) in row">
-        <span>{{ val }}</span>
-      </td>
-    </tr>
-  </tbody>
-</table>
+  <md-content md-whiteframe="21" class="table-responsive">
+    <md-subheader class="md-primary" ng-show="rows.length > 0">
+      <span>Total unique rows found: {{ rows.length }}</span>
+    </md-subheader>
+
+    <table class="table table-sm table-striped table-bordered table-hover table-condensed">
+      <thead class="thead-inverse">
+        <tr ng-repeat="row in rows | limitTo: 1">
+          <th ng-repeat="(key, val) in row">
+            {{ key | uppercase }}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="row in rows track by $index">
+          <td ng-repeat="(key, val) in row">
+            <span>{{ val }}</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </md-content>
+</md-content>
