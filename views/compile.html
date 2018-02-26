@@ -7,8 +7,8 @@
     <md-button aria-label="Clear" class="md-raised md-warn" ng-show="rows.length > 0" ng-click="clear()">Clear</md-button>
   </md-content>
 
-  <md-content md-whiteframe="21" class="table-responsive">
-    <md-subheader class="md-primary" ng-show="rows.length > 0">
+  <md-content md-whiteframe="21" class="table-responsive" ng-show="rows.length > 0">
+    <md-subheader class="md-primary">
       <span>Total unique rows found: {{ rows.length }}</span>
     </md-subheader>
 

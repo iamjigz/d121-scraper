@@ -3,6 +3,20 @@ let app = angular.module('ngApp', ['ngMaterial', 'ngMessages', 'ngAnimate'])
 app.controller('AppCtrl', ($scope, $mdToast, $mdDialog) => {
 	$scope.menuOpen = false
 
+	$scope.theme = 'default'
+	$scope.changeTheme = function() {
+		var themes = ['default', 'indigo', 'lime', 'orange', 'cyan', 'pink', 'brown']
+		var randomize = function(arr) {
+			return arr[Math.floor(Math.random() * arr.length)]
+		}
+
+		$scope.theme = randomize(themes)
+	}
+
+	$scope.darkTheme = () => {
+		$scope.theme = ($scope.theme == 'dark') ? 'default' : 'dark'
+	}
+
 	$scope.openInfo = ev => {
 		$mdDialog.show({
 			controller: DialogController,
@@ -87,9 +101,45 @@ app.directive('fileReader', function(ParseService) {
 						r.readAsText(file)
 					})
 				}
-
 				$(element).val(null)
 			})
 		}
 	}
+})
+
+app.config(function($mdThemingProvider) {
+	$mdThemingProvider.theme('default')
+		.primaryPalette('indigo')
+		.accentPalette('pink')
+
+	$mdThemingProvider.theme('dark')
+		.primaryPalette('indigo')
+		.accentPalette('pink')
+		.dark()
+
+	$mdThemingProvider.theme('indigo')
+		.primaryPalette('green')
+		.accentPalette('deep-orange')
+
+	$mdThemingProvider.theme('lime')
+		.primaryPalette('lime')
+		.accentPalette('deep-orange')
+
+	$mdThemingProvider.theme('orange')
+		.primaryPalette('orange')
+		.accentPalette('red')
+
+	$mdThemingProvider.theme('cyan')
+		.primaryPalette('cyan')
+		.accentPalette('indigo')
+
+	$mdThemingProvider.theme('pink')
+		.primaryPalette('pink')
+		.accentPalette('deep-purple')
+
+	$mdThemingProvider.theme('brown')
+		.primaryPalette('brown')
+		.accentPalette('grey')
+
+	$mdThemingProvider.alwaysWatchTheme(true)
 })

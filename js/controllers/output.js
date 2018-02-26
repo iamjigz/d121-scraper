@@ -50,7 +50,7 @@ app.controller('OutputCtrl', ($scope, $filter, DataService, ParseService) => {
 				$scope.toast('Parsing completed. Downloading file.', 'accent')
 			})
 			.then(() => {
-				DS.set('')
+				DS.set([])
 				$scope.response = DS.get()
 			})
 	}

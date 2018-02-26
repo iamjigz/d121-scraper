@@ -28,8 +28,8 @@
   <link rel="stylesheet" href="css/styles.css">
 </head>
 
-<body layout="column" ng-cloak>
-  <md-content ng-controller="AppCtrl">
+<body layout="column" ng-cloak ng-controller="AppCtrl">
+  <md-content md-theme="{{theme}}" md-theme-watch="true">
     <div ng-include="'views/partials/toolbar.html'"></div>
 
     <md-tabs md-dynamic-height md-border-bottom>
