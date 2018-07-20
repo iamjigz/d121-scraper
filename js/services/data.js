@@ -103,7 +103,7 @@ app.service('DataService', function() {
 		detail.code = isDigits(detail.code)
 		detail.emp_size = isDigits(detail.emp_size)
 
-		if (detail.name == '' || detail.phone == '' || detail.emp_size < 10) detail.note = 'Invalid'
+		if (detail.name == '' || detail.phone == '' || detail.emp_size < 10 || detail.phone.match(/^(84).*$/)) detail.note = 'Invalid'
 
 		return detail
 	}
