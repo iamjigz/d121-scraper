@@ -21,7 +21,7 @@ app.service('DataService', function() {
 
 			const address = findAddress(arr)
 			const name = findName(arr, address)
-			const phone = findByRegex(arr, '(?:Tel: )(\\d+)')
+			const phone = findByRegex(arr, '(?:Tel: )((\\d+\\-?)+)')
 			const sic = findByRegex(arr, '(?:US SIC: \\d+\\s)(.*)')
 			const code = findByRegex(arr, '(?:US SIC: )(\\d+)')
 			const contact = findByRegex(arr, '((.*Director|Partner|Proprietor).*: .*)')
@@ -30,14 +30,14 @@ app.service('DataService', function() {
 			details = {
 				name: name,
 				address: address,
-				phone: phone,
+				phone: phone.replace(/\D/g, ''),
 				sic: sic,
 				code: code,
 				contact: contact,
 				emp_size: emp_size,
 				note: ''
 			}
-
+			console.log(details)
 			return validate(details)
 		}
 	}
@@ -104,6 +104,7 @@ app.service('DataService', function() {
 		detail.emp_size = isDigits(detail.emp_size)
 
 		if (detail.name == '' || detail.phone == '' || detail.emp_size < 10) detail.note = 'Invalid'
+		if (detail.phone.length != 10 || detail.phone.startsWith(8)) detail.note = 'Invalid'
 
 		return detail
 	}
